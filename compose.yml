@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  colorear-app:
+    image: nginx:alpine
+    container_name: colorear_ok
+    ports:
+      - "2000:80"
+    volumes:
+      # Pasamos el código del juego
+      - /srv/dev-disk-by-uuid-9bcfee3a-a3cc-4f9b-a0dd-c88be1d61db5/piNas/appdata/colorear:/usr/share/nginx/html:ro
+      # Pasamos los dibujos
+      - /srv/dev-disk-by-uuid-9bcfee3a-a3cc-4f9b-a0dd-c88be1d61db5/piNas/appdata/colorear/dibujos:/usr/share/nginx/html/dibujos:ro
+      # NUEVO: Pasamos la configuración limpia reemplazando la de Nginx por defecto
+      - /srv/dev-disk-by-uuid-9bcfee3a-a3cc-4f9b-a0dd-c88be1d61db5/piNas/appdata/colorear/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: unless-stopped
