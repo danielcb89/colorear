@@ -36,84 +36,88 @@ canvas { display: block; max-width: 100%; max-height: 100%; object-fit: contain;
 .tab-content { display: none; width: 100%; }
 .tab-content.active { display: block; }
 .colors-grid, .shapes-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; padding: 1px; }
-.color-bubble { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.color-bubble { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
 .color-bubble.selected { border-color: #000; }
-.shape-btn { width: 28px; height: 28px; border: 2px solid #fff; border-radius: 6px; background: #f8fafc; cursor: pointer; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; padding: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.shape-btn { width: 28px; height: 28px; border: 2px solid #fff; border-radius: 6px; background: #f8fafc; cursor: pointer; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; padding: 0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
 .shape-btn.selected { background: #3b82f6; border-color: #000; color: white; transform: scale(1.05); }
 </style>
 </head>
 <body>
 <div class="game-container">
-    <div class="sidebar-portfolio">
-        <div class="app-title-side">🎨 ¡A Colorear!</div>
-        <h2 id="portfolio-title">📁 Categorías</h2>
-        <div id="back-button-container"></div>
-        <div class="portfolio-scroll" id="portfolio-list"></div>
-    </div>
-    <div class="canvas-area">
-        <div class="canvas-wrapper" id="canvasHolder">
-            <canvas id="paintCanvas"></canvas>
-            <canvas id="tempCanvas"></canvas>
-            <canvas id="linesCanvas"></canvas>
-        </div>
-    </div>
-    <div class="control-panel">
-        <div>
-            <div class="tools-grid">
-                <button id="tool-pincel" class="tool-btn active" onclick="interceptarCambioHerramienta('pincel')">✏️</button>
-                <button id="tool-relleno" class="tool-btn" onclick="interceptarCambioHerramienta('relleno')">🪣</button>
-                <button id="tool-borrador" class="tool-btn" onclick="interceptarCambioHerramienta('borrador')">🧽</button>
-                <div style="grid-column: span 2; display: flex; flex-direction: column; gap: 2px; width: 100%;">
-                    <div class="size-panel">
-                        <button id="size-fino" class="size-btn" onclick="setGrosor(4, 'fino')">✏️ Fino</button>
-                        <button id="size-medio" class="size-btn active" onclick="setGrosor(8, 'medio')">🖌️ Medio</button>
-                        <button id="size-grueso" class="size-btn" onclick="setGrosor(16, 'grueso')">🖍️ Gordo</button>
-                    </div>
-                </div>
-                <button class="btn-undo" onclick="deshacerPaso()">↩️ Paso Atrás</button>
-            </div>
-        </div>
-        <div class="colors-container">
-            <div class="tabs-container">
-                <button id="tab-colores" class="tab-header-btn active" onclick="cambiarPestana('colores')">🌈</button>
-                <button id="tab-formas" class="tab-header-btn" onclick="cambiarPestana('formas')">⭐</button>
-            </div>
-            <div id="content-colores" class="tab-content active">
-                <div class="colors-grid" id="colors-palette"></div>
-            </div>
-            <div id="content-formas" class="tab-content">
-                <div class="shapes-grid" id="shapes-palette"></div>
-            </div>
-            <button class="btn-danger" onclick="reiniciarLienzo()">🔄 Borrar todo</button>
-        </div>
-    </div>
+<div class="sidebar-portfolio">
+<div class="app-title-side">🎨 ¡A Colorear!</div>
+<h2 id="portfolio-title">📁 Categorías</h2>
+<div id="back-button-container"></div>
+<div class="portfolio-scroll" id="portfolio-list"></div>
+</div>
+<div class="canvas-area">
+<div class="canvas-wrapper" id="canvasHolder">
+<canvas id="paintCanvas"></canvas>
+<canvas id="tempCanvas"></canvas>
+<canvas id="linesCanvas"></canvas>
+</div>
+</div>
+<div class="control-panel">
+<div>
+<div class="tools-grid">
+<button id="tool-pincel" class="tool-btn active" onclick="interceptarCambioHerramienta('pincel')">✏</button>
+<button id="tool-relleno" class="tool-btn" onclick="interceptarCambioHerramienta('relleno')">🪣</button>
+<button id="tool-borrador" class="tool-btn" onclick="interceptarCambioHerramienta('borrador')">🧽</button>
+<!-- CORREGIDO: Botón cuadrado limpio ordenado en la matriz: Fila 1 (✏ y 🪣), Fila 2 (🧽 y 🌈) -->
+<button id="tool-arcoiris" class="tool-btn" onclick="interceptarCambioHerramienta('arcoiris')">🌈</button>
+<div style="grid-column: span 2; display: flex; flex-direction: column; gap: 2px; width: 100%;">
+<div class="size-panel">
+<button id="size-fino" class="size-btn" onclick="setGrosor(4, 'fino')">✏ Fino</button>
+<button id="size-medio" class="size-btn active" onclick="setGrosor(8, 'medio')">🖌 Medio</button>
+<button id="size-grueso" class="size-btn" onclick="setGrosor(16, 'grueso')">🖍 Gordo</button>
+</div>
+</div>
+<button class="btn-undo" onclick="deshacerPaso()">↩ Paso Atrás</button>
+</div>
+</div>
+<div class="colors-container">
+<div class="tabs-container">
+<button id="tab-colores" class="tab-header-btn active" onclick="cambiarPestana('colores')">🌈</button>
+<button id="tab-formas" class="tab-header-btn" onclick="cambiarPestana('formas')">⭐</button>
+</div>
+<div id="content-colores" class="tab-content active">
+<div class="colors-grid" id="colors-palette"></div>
+</div>
+<div id="content-formas" class="tab-content">
+<div class="shapes-grid" id="shapes-palette"></div>
+</div>
+<button class="btn-danger" onclick="reiniciarLienzo()">🔄 Borrar todo</button>
+</div>
+</div>
 </div>
 <script>
 let formaSeleccionada = null;
 function cambiarPestana(tipo) {
-    if (tipo === 'colores' && formaSeleccionada) { if (typeof finalizarYEstamparForma === 'function') finalizarYEstamparForma(); }
-    document.querySelectorAll('.tab-header-btn, .tab-content').forEach(el => el.classList.remove('active'));
-    document.getElementById('tab-' + tipo).classList.add('active');
-    document.getElementById('content-' + tipo).classList.add('active');
-    if (tipo === 'formas') {
-        setMode('pincel');
-        if (!formaSeleccionada) { const b = document.querySelector('.shape-btn'); if(b) b.click(); }
-    } else {
-        formaSeleccionada = null; document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('selected'));
-    }
+if (tipo === 'colores' && formaSeleccionada) { if (typeof finalizarYEstamparForma === 'function') finalizarYEstamparForma(); }
+document.querySelectorAll('.tab-header-btn, .tab-content').forEach(el => el.classList.remove('active'));
+document.getElementById('tab-' + tipo).classList.add('active');
+document.getElementById('content-' + tipo).classList.add('active');
+if (tipo === 'formas') {
+if (typeof deseleccionarArcoirisNativo === 'function') deseleccionarArcoirisNativo();
+setMode('pincel');
+if (!formaSeleccionada) { const b = document.querySelector('.shape-btn'); if(b) b.click(); }
+} else {
+formaSeleccionada = null; document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('selected'));
+}
 }
 function seleccionarForma(id) {
-    if (formaSeleccionada && formaSeleccionada !== id) { if (typeof finalizarYEstamparForma === 'function') finalizarYEstamparForma(); }
-    formaSeleccionada = id;
-    document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('selected'));
-    const target = document.getElementById('shape-' + id);
-    if(target) target.classList.add('selected');
-    setMode('pincel');
-    if (typeof iniciarNuevaFormaFlotante === 'function') iniciarNuevaFormaFlotante(id);
+if (formaSeleccionada && formaSeleccionada !== id) { if (typeof finalizarYEstamparForma === 'function') finalizarYEstamparForma(); }
+formaSeleccionada = id;
+document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('selected'));
+const target = document.getElementById('shape-' + id);
+if(target) target.classList.add('selected');
+if (typeof deseleccionarArcoirisNativo === 'function') deseleccionarArcoirisNativo();
+setMode('pincel');
+if (typeof iniciarNuevaFormaFlotante === 'function') iniciarNuevaFormaFlotante(id);
 }
 function interceptarCambioHerramienta(nuevoModo) {
-    if (formaSeleccionada) { if (typeof finalizarYEstamparForma === 'function') finalizarYEstamparForma(); formaSeleccionada = null; document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('selected')); }
-    setMode(nuevoModo);
+if (formaSeleccionada) { if (typeof finalizarYEstamparForma === 'function') finalizarYEstamparForma(); formaSeleccionada = null; document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('selected')); }
+setMode(nuevoModo);
 }
 </script>
 <script src="./relleno.js"></script>

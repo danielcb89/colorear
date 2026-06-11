@@ -1,0 +1,17 @@
+{
+  "short_name": "A Colorear",
+  "name": "Mi Libro de Colorear Dinámico",
+  "icons": [
+    {
+      "src": "dibujos/icono.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#fef08a",
+  "theme_color": "#db2777",
+  "display": "standalone",
+  "orientation": "landscape"
+}
